@@ -65,55 +65,15 @@ The solution retains the technical name `Advertisements`; the product is Reapify
 
 ### Requirements
 
-- .NET 8 SDK or a compatible SDK, and the ASP.NET Core 8 runtime.
-- SQL Server or SQL Server Express LocalDB, with SSMS to run the database scripts.
-- Visual Studio with ASP.NET support, or the .NET CLI.
-- Access to NuGet for package restore and to the CDNs used by Feather and Simple-DataTables.
+- Visual Studio with ASP.NET support and .NET 8.
+- SQL Server Express and SQL Server Management Studio (SSMS).
 
-### Database setup
+### Setup
 
-1. Run [database/01-schema.sql](database/01-schema.sql) in SSMS. It creates `Reapify_Portfolio_Demo`, its 11 tables, and 53 stored procedures. Run it once on an instance where that database does not already exist.
-2. Run [database/02-demo-data.sql](database/02-demo-data.sql). It requires empty tables and rejects an existing dataset to prevent duplicate records.
-
-These scripts create a separate database. You do not need the original business database or my credentials.
-
-### Connection settings
-
-The checked-in development configuration uses `(localdb)\MSSQLLocalDB` with Windows integrated authentication. If you created the demo database on that instance, no private settings file is required.
-
-For a different SQL Server instance, copy the public configuration example from the repository root:
-
-```powershell
-Copy-Item Advertisements/appsettings.Local.example.json Advertisements/appsettings.Local.json
-```
-
-If you already have a local settings file, edit it instead of overwriting it. Set the server to your own SQL Server instance and keep the database name `Reapify_Portfolio_Demo`.
-
-For example, a local SQL Server Express instance using Windows authentication can use:
-
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=.\\SQLEXPRESS;Database=Reapify_Portfolio_Demo;Integrated Security=True;TrustServerCertificate=True;"
-  }
-}
-```
-
-If your server requires SQL authentication, configure your own database user and password in the local file instead of using integrated authentication. No shared credentials are needed.
-
-`appsettings.Local.example.json` is public and contains no credentials. `appsettings.Local.json` is excluded by `.gitignore` and is loaded only in the Development environment. Environment variables such as `ConnectionStrings__DefaultConnection` can override these settings. Do not commit your local file or database backups.
-
-### Start the application
-
-From the repository root:
-
-```powershell
-dotnet restore Advertisements.sln
-cd Advertisements
-dotnet run --launch-profile https
-```
-
-Open the URL printed in the console. Alternatively, open `Advertisements.sln` in Visual Studio and run the `https` profile.
+1. Run [database/01-schema.sql](database/01-schema.sql), then [database/02-demo-data.sql](database/02-demo-data.sql) in SSMS to create and populate a new `Reapify_Portfolio_Demo` database.
+2. Open `Advertisements.sln` in Visual Studio.
+3. Adjust `ConnectionStrings:DefaultConnection` in `Advertisements/appsettings.Development.json` for your SQL Server instance. The default uses `.\SQLEXPRESS` with Windows authentication. For private credentials, copy `appsettings.Local.example.json` to `appsettings.Local.json`; this ignored file overrides the development connection.
+4. Run the application using the `https` profile.
 
 ## Suggested walkthrough
 
