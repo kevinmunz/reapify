@@ -58,7 +58,6 @@ ASP.NET Core MVC on .NET 8, Razor, Bootstrap, SQL Server, and Dapper. ClosedXML 
 | `Advertisements/Views` | Razor views and shared components |
 | `Advertisements/wwwroot` | Styles, scripts, and static assets |
 | `database` | SQL schema, stored procedures, and fictional seed data |
-| `tests` | Executable payment and mapping checks |
 
 The solution retains the technical name `Advertisements`; the product is Reapify.
 
@@ -153,27 +152,13 @@ Budget: **BOB 500**. Rate: **BOB 10 per block**. Commission: **20%**.
 
 The seed script creates one client, six creators, one campaign, six enrollments, six metrics, and two transactions. Initial totals are **BOB 50 for the client and BOB 40 for creators**; BOB 24 is recorded as paid and BOB 16 remains pending. The client deposit is BOB 500. These figures describe a fresh dataset before any demo changes.
 
-## Verification
-
-From the repository root, with the application stopped:
-
-```powershell
-# .NET 9 SDK/runtime: payment calculations
-dotnet run --project tests/PaymentChecks/PaymentChecks.csproj
-
-# .NET 8 SDK/runtime: edit view models
-dotnet run --project tests/MappingChecks/MappingChecks.csproj
-```
-
-These executables return an error exit code when a check fails. They cover view-count boundaries, budget limits, settled payments, rounding, and preservation of all 87 fields across the five edit mappings. They do not require a SQL Server connection and do not replace integration or UI tests.
-
 ## Scope and limitations
 
 - Intended for local demonstration; authentication and roles are not implemented yet.
 - `Settled` is assigned manually, without enforcing that a sufficient payment transaction exists.
 - Some forms allow editing amounts and relationships. Further validation and antiforgery protection across all workflows remain to be implemented.
 - Excel export is not implemented; metric import and PDF reports are available.
-- A complete automated SQL Server and browser integration suite is not included.
+- Automated tests are not included.
 
 ## Ownership and licenses
 
