@@ -18,33 +18,33 @@ This portfolio version includes a demo database with fictional records. I create
 
 ### Workspace overview
 
-A central workspace for clients, creators, campaigns, and payments.
-
 ![Workspace overview](docs/screenshots/01-overview.png)
+
+A central workspace for clients, creators, campaigns, and payments.
 
 ### Campaign management
 
-Campaign budgets, schedules, and status in one place.
-
 ![Campaign management](docs/screenshots/02-campaigns.png)
+
+Campaign budgets, schedules, and status in one place.
 
 ### Performance and payouts
 
-Review content metrics and calculate payments within the campaign budget.
-
 ![Campaign metrics](docs/screenshots/03-campaign-metrics.png)
+
+Review content metrics and calculate payments within the campaign budget.
 
 ### Transaction history
 
-Deposits and creator payouts linked to their related records.
-
 ![Transaction history](docs/screenshots/04-transactions.png)
+
+Deposits and creator payouts linked to their related records.
 
 ### Campaign report
 
-A generated PDF summarizing campaign performance and financial results.
-
 ![Campaign report](docs/screenshots/05-campaign-report.png)
+
+A generated PDF summarizing campaign performance and financial results.
 
 ## Technology and structure
 
