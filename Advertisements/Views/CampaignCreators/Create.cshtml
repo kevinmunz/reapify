@@ -1,0 +1,38 @@
+@model Advertisements.Models.CampaignCreatorModels.CampaignCreator
+
+@{
+    ViewData["Title"] = "Create enrollment";
+}
+
+<div class="container-fluid p-4 p-lg-5">
+    <header class="mb-4"><a asp-controller="CampaignCreators" asp-action="Index" class="d-inline-block mb-3">&larr; Back to list</a><h1 class="h2">Create enrollment</h1><p class="text-muted">Keep the details up to date for your campaign workspace.</p></header>
+    <section class="card reapify-form-card"><div class="card-body p-4">
+<form asp-action="Create" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="mb-4">
+                            <label asp-for="CreationDate" class="form-label"></label>
+                            <input asp-for="CreationDate" class="form-control" />
+                            <span asp-validation-for="CreationDate" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="CampaignId" class="form-label"></label>
+                            <input asp-for="CampaignId" class="form-control" />
+                            <span asp-validation-for="CampaignId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="CreatorId" class="form-label"></label>
+                            <input asp-for="CreatorId" class="form-control" />
+                            <span asp-validation-for="CreatorId" class="text-danger"></span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <a class="btn btn-secondary" asp-controller="CampaignCreators" asp-action="Index">Cancel</a>
+                            <button class="btn btn-primary" type="submit">Create</button>
+                        </div>
+                    </form>
+    </div></section>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

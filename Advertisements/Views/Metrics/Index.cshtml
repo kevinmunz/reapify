@@ -1,0 +1,131 @@
+@using Advertisements.Models.Enums
+@model IEnumerable<Advertisements.Models.MetricModels.Metric>
+
+@{
+    ViewData["Title"] = "Metrics";
+}
+
+<div class="container-fluid p-4 p-lg-5">
+    <header class="d-flex justify-content-between align-items-start gap-3 flex-wrap mb-4">
+        <div><p class="reapify-eyebrow">CAMPAIGN WORKSPACE</p><h1 class="h2">All metrics</h1><p class="text-muted mb-0">Review content performance and submission status.</p></div>
+        <a class="btn btn-outline-primary" asp-controller="Campaigns" asp-action="Index">View campaigns</a>
+    </header>
+    @if (TempData["Error"] != null) { <div class="alert alert-danger" role="alert">@TempData["Error"]</div> }
+    @if (TempData["Success"] != null) { <div class="alert alert-success" role="status">@TempData["Success"]</div> }
+    <section class="card"><div class="card-body"><div class="table-responsive">
+<table class="table table-hover align-middle" data-reapify-table>
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Timestamp</th>                        
+                        <th scope="col">Creator</th>
+                        <th scope="col">SShot</th>
+                        <th scope="col">Video</th>
+                        <th scope="col">Views</th>
+                        <th scope="col">Likes</th>
+                        <th scope="col">Comm.</th>
+                        <th scope="col">Shares</th>
+                        <th scope="col">Saves</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">QR</th>
+                        <th scope="col">CalCliPay</th>
+                        <th scope="col">CalCrePay</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SubmissionTimestamp)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatorName)
+                            </td>
+                            <td>
+                                <a href="@item.ScreenshotLink" target="_blank" rel="noopener noreferrer">SS Link</a>
+                            </td>
+                            <td>
+                                <a href="@item.VideoLink" target="_blank" rel="noopener noreferrer">Video Link</a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NumViews)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NumLikes)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NumComments)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NumShares)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NumSaves)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.VideoDuration)
+                            </td>
+                            <td>
+                                <a href="@item.QRCodeLink" target="_blank" rel="noopener noreferrer">QR Link</a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CalculatedClientPayment)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CalculatedCreatorPayout)
+                            </td>
+                            <td>
+                                @{
+                                    string statusBadgeClass = item.MetricStatus switch
+                                    {
+                                        MetricStatus.Pending => "bg-secondary",
+                                        MetricStatus.Accepted => "bg-primary",
+                                        MetricStatus.Rejected => "bg-danger",
+                                        MetricStatus.Settled => "bg-success",
+                                        _ => "bg-secondary"
+                                    };
+                                }
+                                <div class="badge @statusBadgeClass rounded-pill">
+                                    @Html.DisplayFor(modelItem => item.MetricStatus)
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" id="actions-@item.ProductId" aria-label="Actions for record @item.ProductId" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i data-feather="list"></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="actions-@item.ProductId">
+                                            <a class="dropdown-item" asp-action="Update" asp-route-metricId="@item.ProductId">
+                                                
+                                                Edit
+                                            </a>
+                                            <a class="dropdown-item" asp-controller="Transactions" asp-action="CreateForMetric" asp-route-metricId="@item.ProductId">
+                                                
+                                                Create Transaction
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+    </div></div></section>
+</div>
+<partial name="_TransactionLookup" />
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous" asp-append-version="true"></script>
+    <script src="~/js/reapify-tables.js" asp-append-version="true"></script>
+}
+
+
+

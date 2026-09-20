@@ -1,0 +1,29 @@
+@model Advertisements.Models.CreatorModels.IndexCreatorsVM
+@{ ViewData["Title"] = "Add creators"; }
+<div class="container-fluid p-4 p-lg-5">
+    <header class="mb-4"><a asp-controller="CampaignCreators" asp-action="IndexByCampaign" asp-route-campaignId="@Model.CampaignId" class="d-inline-block mb-3">&larr; Campaign enrollments</a><h1 class="h2">Add creators to campaign #@Model.CampaignId</h1><p class="text-muted">Select creators to enroll. Existing enrollments stay in place.</p></header>
+    <form asp-action="CreateEnrollments" method="post" id="enrollment-selection">
+        <input type="hidden" name="campaignId" value="@Model.CampaignId" />
+        <section class="card"><div class="card-body">
+            <div class="d-flex gap-3 flex-wrap align-items-end mb-4">
+                <div class="flex-grow-1"><label for="creator-filter" class="form-label">Find a creator</label><input type="search" id="creator-filter" class="form-control" placeholder="Name or email" /></div>
+                <button type="submit" class="btn btn-primary">Enroll selected</button>
+            </div>
+            <p class="text-muted small" id="selection-count" role="status"></p>
+            <div class="table-responsive"><table class="table table-hover align-middle">
+                <thead><tr><th scope="col">Select</th><th scope="col">Creator</th><th scope="col">Email</th><th scope="col">Followers</th><th scope="col">Status</th></tr></thead>
+                <tbody>
+                @foreach (var creator in Model.Creators)
+                {
+                    <tr data-creator-row>
+                        <td>@if (creator.Selected) { <span class="reapify-status reapify-status-income">Enrolled</span> } else { <input type="checkbox" class="form-check-input" name="selectedIds" value="@creator.EntityId" aria-label="Enroll @creator.Name" /> }</td>
+                        <td>@creator.Name <small class="text-muted">#@creator.EntityId</small></td><td>@creator.RegistrationEmail</td><td>@creator.FollowerRange</td><td>@creator.CreatorStatus</td>
+                    </tr>
+                }
+                </tbody>
+            </table></div>
+            <p id="creator-empty" class="text-muted" hidden>No creators match your search.</p>
+        </div></section>
+    </form>
+</div>
+@section Scripts { <script src="~/js/reapify-selection.js" asp-append-version="true"></script> }

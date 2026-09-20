@@ -1,0 +1,160 @@
+@using Advertisements.Models.Enums
+@model Advertisements.Models.CampaignModels.CreateCampaignVM
+
+@{
+    ViewData["Title"] = "Edit campaign";
+}
+
+<div class="container-fluid p-4 p-lg-5">
+    <header class="mb-4">
+        <a asp-controller="Campaigns" asp-action="Index" class="d-inline-block mb-3">&larr; Campaigns</a>
+        <h1 class="h2">Edit campaign</h1>
+        <p class="text-muted">Update campaign details and payment terms.</p>
+    </header>
+    <section class="card reapify-form-card"><div class="card-body p-4">
+<form asp-action="Update" method="post" class="reapify-editor">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="mb-4">
+                            <label asp-for="ProductId" class="form-label"></label>
+                            <input asp-for="ProductId" class="form-control" readonly />
+                            <span asp-validation-for="ProductId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="CreationDate" class="form-label"></label>
+                            <input asp-for="CreationDate" class="form-control" />
+                            <span asp-validation-for="CreationDate" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="ClientId" class="form-label"></label>
+                            <select asp-for="ClientId" class="form-select" asp-items="Model.ClientNames"></select>
+                            <span asp-validation-for="ClientId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="Scale" class="form-label"></label>
+                            <select asp-for="Scale" asp-items="Html.GetEnumSelectList<Scale>()" class="form-select"></select>
+                            <span asp-validation-for="Scale" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="Currency" class="form-label"></label>
+                            <select asp-for="Currency" asp-items="Html.GetEnumSelectList<Currency>()" class="form-select"></select>
+                            <span asp-validation-for="Currency" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="ComissionRate" class="form-label"></label>
+                            <input asp-for="ComissionRate" class="form-control" />
+                            <span asp-validation-for="ComissionRate" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="ClientBudget" class="form-label"></label>
+                            <div class="input-group">
+                                <input asp-for="ClientBudget" class="form-control" />
+                                <div class="input-group-text">BOB</div>
+                            </div>
+                            <span asp-validation-for="ClientBudget" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">CreatorBudget</label>
+                            <div class="input-group">
+                                <input id="CreatorBudget" class="form-control" readonly />
+                                <div class="input-group-text">BOB</div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="Platform" class="form-label"></label>
+                            <select asp-for="Platform" asp-items="Html.GetEnumSelectList<Platform>()" class="form-select"></select>
+                            <span asp-validation-for="Platform" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="Goal" class="form-label"></label>
+                            <input asp-for="Goal" class="form-control" />
+                            <span asp-validation-for="Goal" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="StartDate" class="form-label"></label>
+                            <input asp-for="StartDate" class="form-control" />
+                            <span asp-validation-for="StartDate" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="EndDate" class="form-label"></label>
+                            <input asp-for="EndDate" class="form-control" />
+                            <span asp-validation-for="EndDate" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="ClientPaymentRate" class="form-label"></label>
+                            <div class="input-group">
+                                <input asp-for="ClientPaymentRate" class="form-control" />
+                                <div class="input-group-text">BOB</div>
+                            </div>
+                            <span asp-validation-for="ClientPaymentRate" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">CreatorPayoutRate</label>
+                            <div class="input-group">
+                                <input id="CreatorPayoutRate" class="form-control" readonly />
+                                <div class="input-group-text">BOB</div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="Details" class="form-label"></label>
+                            <textarea asp-for="Details" class="form-control" rows="5"></textarea>
+                            <span asp-validation-for="Details" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="GoogleFormsLink" class="form-label"></label>
+                            <input asp-for="GoogleFormsLink" class="form-control" />
+                            <span asp-validation-for="GoogleFormsLink" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="WebhookURL" class="form-label"></label>
+                            <textarea asp-for="WebhookURL" class="form-control" rows="5"></textarea>
+                            <span asp-validation-for="WebhookURL" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="SalesGrowth" class="form-label"></label>
+                            <input asp-for="SalesGrowth" class="form-control" />
+                            <span asp-validation-for="SalesGrowth" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="Stage" class="form-label"></label>
+                            <select asp-for="Stage" asp-items="Html.GetEnumSelectList<Stage>()" class="form-select"></select>
+                            <span asp-validation-for="Stage" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="CampaignStatus" class="form-label"></label>
+                            <select asp-for="CampaignStatus" asp-items="Html.GetEnumSelectList<CampaignStatus>()" class="form-select"></select>
+                            <span asp-validation-for="CampaignStatus" class="text-danger"></span>
+                        </div>
+                        <hr class="my-4" />
+                        <div class="d-flex justify-content-between">
+                            <a class="btn btn-outline-primary" asp-controller="Campaigns" asp-action="Index">Cancel</a>
+                            <button class="btn btn-primary" type="submit">Save</button>
+                        </div>
+                    </form>
+    </div></section>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        const comissionRate = document.getElementById('ComissionRate');
+
+        const clientBudget = document.getElementById('ClientBudget');
+        const creatorBudget = document.getElementById('CreatorBudget');
+        creatorBudget.value = clientBudget.value * (1 - comissionRate.value);
+        clientBudget.addEventListener('input', () => {
+            creatorBudget.value = clientBudget.value * (1 - comissionRate.value);
+        });
+
+        const clientPaymentRate = document.getElementById('ClientPaymentRate');
+        const creatorPayoutRate = document.getElementById('CreatorPayoutRate');
+        creatorPayoutRate.value = clientPaymentRate.value * (1 - comissionRate.value);
+        clientPaymentRate.addEventListener('input', () => {
+            creatorPayoutRate.value = clientPaymentRate.value * (1 - comissionRate.value);
+        });
+
+    </script>
+}
+
+

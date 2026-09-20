@@ -1,0 +1,14 @@
+@model Advertisements.Models.CampaignCreatorModels.CampaignCreator
+@{ ViewData["Title"] = "Remove enrollment"; }
+<div class="container-fluid p-4 p-lg-5">
+    <h1 class="h2 mb-4">Remove enrollment</h1>
+    <section class="card reapify-form-card"><div class="card-body p-4">
+        <p>Remove <strong>@Model.CreatorName</strong> (creator #@Model.CreatorId) from campaign <strong>#@Model.CampaignId</strong>?</p>
+        <p class="text-muted">An enrollment linked to other records may not be removable.</p>
+        <form asp-action="DeleteCampaignCreator" method="post" class="d-flex gap-3 mt-4">
+            <input asp-for="CampaignCreatorId" type="hidden" />
+            <a class="btn btn-outline-secondary" asp-action="IndexByCampaign" asp-route-campaignId="@Model.CampaignId">Cancel</a>
+            <button class="btn btn-danger" type="submit">Remove enrollment</button>
+        </form>
+    </div></section>
+</div>

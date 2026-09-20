@@ -1,0 +1,39 @@
+@using Advertisements.Models.Enums
+@model Advertisements.Models.WebhookMessageModels.WebhookMessage
+@{
+    ViewData["Title"] = "Send campaign message";
+}
+
+<div class="container-fluid p-4 p-lg-5">
+    <header class="mb-4"><a asp-controller="Campaigns" asp-action="Index" class="d-inline-block mb-3">&larr; Back to list</a><h1 class="h2">Send campaign message</h1><p class="text-muted">Choose the message type and destination for this campaign.</p></header>
+    <section class="card reapify-form-card"><div class="card-body p-4">
+        @if (TempData["Error"] != null) { <div class="alert alert-danger" role="alert">@TempData["Error"]</div> }
+        @if (TempData["Alert"] != null) { <div class="alert alert-warning" role="status">@TempData["Alert"]</div> }
+        @if (TempData["Success"] != null) { <div class="alert alert-success" role="status">@TempData["Success"]</div> }
+<form asp-action="Send" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <input asp-for="CampaignId" hidden/>
+                        <div class="mb-4">
+                            <label asp-for="WebhookURL" class="form-label"></label>
+                            <textarea asp-for="WebhookURL" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="WebhookURL" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="ImageURL" class="form-label"></label>
+                            <textarea asp-for="ImageURL" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="ImageURL" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="WebhookMessageType" class="form-label"></label>
+                            <select asp-for="WebhookMessageType" asp-items="Html.GetEnumSelectList<WebhookMessageType>()" class="form-select"></select>
+                            <span asp-validation-for="WebhookMessageType" class="text-danger"></span>
+                        </div>
+                        <hr class="my-4" />
+                        <div class="d-flex justify-content-between">
+                            <a class="btn btn-outline-primary" asp-controller="Campaigns" asp-action="Index">Cancel</a>
+                            <button class="btn btn-primary" type="submit">Send</button>
+                        </div>
+                    </form>
+    </div></section>
+</div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

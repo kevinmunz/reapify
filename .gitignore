@@ -1,0 +1,45 @@
+# .NET build output (recreated by dotnet build)
+**/[Bb]in/
+**/[Oo]bj/
+
+# Visual Studio workspace and per-user settings
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Private local configuration; keep the public setup examples
+**/appsettings.Local.json
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Database files and data backups; keep schema and seed .sql scripts
+*.bak
+*.mdf
+*.ndf
+*.ldf
+*.trn
+*.bacpac
+
+# Test results and coverage output
+**/TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Generated NuGet packages
+*.nupkg
+*.snupkg
+
+# Local publishing settings (may contain credentials)
+*.publishsettings
+*.pubxml.user
+**/Properties/PublishProfiles/
+
+# Runtime logs and operating-system metadata
+*.log
+.DS_Store
+Thumbs.db

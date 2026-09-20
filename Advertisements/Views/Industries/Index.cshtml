@@ -1,0 +1,15 @@
+@model IEnumerable<Advertisements.Models.IndustryModels.Industry>
+@{ ViewData["Title"] = "Industries"; }
+<div class="container-fluid p-4 p-lg-5">
+    <header class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4"><div><p class="reapify-eyebrow">CLIENT CATALOG</p><h1 class="h2">Industries</h1><p class="text-muted">Business sectors used to organize your clients.</p></div><a class="btn btn-primary" asp-action="Create">Create industry</a></header>
+    <section class="card"><div class="card-body"><div class="table-responsive">
+        <table class="table table-hover align-middle" data-reapify-table>
+            <thead><tr><th scope="col">ID</th><th scope="col">Name</th><th scope="col">Action</th></tr></thead>
+            <tbody>@foreach (var item in Model) { <tr><td>@item.IndustryId</td><td>@item.Name</td><td><a class="btn btn-sm btn-outline-primary" asp-action="Update" asp-route-industryId="@item.IndustryId" aria-label="Edit @item.Name">Edit</a></td></tr> }</tbody>
+        </table>
+    </div></div></section>
+</div>
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="~/js/reapify-tables.js" asp-append-version="true"></script>
+}

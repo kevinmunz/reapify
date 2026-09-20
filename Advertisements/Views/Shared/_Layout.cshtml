@@ -1,0 +1,54 @@
+@{
+    var current = ViewContext.RouteData.Values["controller"]?.ToString();
+    var links = new[] {
+        (Controller: "Home", Label: "Overview"),
+        (Controller: "Campaigns", Label: "Campaigns"),
+        (Controller: "Creators", Label: "Creators"),
+        (Controller: "Clients", Label: "Clients"),
+        (Controller: "Transactions", Label: "Transactions"),
+        (Controller: "Industries", Label: "Industries")
+    };
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Manage creator campaigns, review performance and track payments with Reapify." />
+    <title>@ViewData["Title"] | Reapify</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/reapify.css" asp-append-version="true" />
+    <link rel="icon" href="~/reapify.svg" type="image/svg+xml" />
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <a class="reapify-skip" href="#main-content">Skip to content</a>
+    <header class="reapify-topbar">
+        <a class="reapify-brand" asp-controller="Home" asp-action="Index"><span class="reapify-mark" aria-hidden="true">R</span> Reapify<span class="reapify-brand-detail"> / Network</span></a>
+        <span class="reapify-workspace">Campaign workspace</span>
+        <button class="btn btn-outline-dark d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#workspace-navigation" aria-controls="workspace-navigation" aria-expanded="false">Menu</button>
+    </header>
+    <div class="reapify-shell">
+        <aside class="reapify-sidebar">
+            <nav id="workspace-navigation" class="collapse d-lg-block" aria-label="Main navigation">
+                <p class="reapify-nav-label">WORKSPACE</p>
+                @foreach (var link in links)
+                {
+                    var active = current == link.Controller || (link.Controller == "Campaigns" && new[] { "Metrics", "CampaignCreators", "WebhookMessages" }.Contains(current));
+                    <a class="reapify-nav-link @(active ? "is-active" : "")" asp-controller="@link.Controller" asp-action="Index" aria-current="@(current == link.Controller && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "page" : null)">@link.Label</a>
+                }
+                <div class="reapify-sidebar-note"><strong>Built around creators.</strong><span>Plan campaigns. Review results. Track payments.</span></div>
+            </nav>
+        </aside>
+        <div class="reapify-content">
+            <main id="main-content" tabindex="-1">@RenderBody()</main>
+            <footer class="reapify-footer"><span>Reapify Network &copy; @DateTime.Now.Year</span><span>Created by Kevin Munoz</span></footer>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/reapify.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

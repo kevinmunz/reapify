@@ -1,0 +1,33 @@
+@model Advertisements.Models.TransactionModels.CreateTransactionVM
+@{
+    ViewData["Title"] = "Edit transaction";
+    ViewData["LockTransactionLinks"] = false;
+}
+<div class="container-fluid p-4 p-lg-5">
+    <header class="mb-4">
+        <a asp-action="Index" class="d-inline-block mb-3">&larr; Transaction history</a>
+        <h1 class="h2">Edit transaction</h1>
+        <p class="text-muted">Keep a record of the amount, purpose and related campaign or metric.</p>
+    </header>
+    <section class="card reapify-form-card">
+        <div class="card-body p-4">
+            <form asp-action="Update" method="post">
+                <div asp-validation-summary="All" class="text-danger" role="alert"></div>
+            <input asp-for="TransactionId" type="hidden" />
+            <div class="mb-4">
+                <label asp-for="CreationDate" class="form-label">Transaction date</label>
+                <input asp-for="CreationDate" class="form-control" />
+                <span asp-validation-for="CreationDate" class="text-danger"></span>
+            </div>
+                <partial name="_TransactionFields" model="Model" />
+                <div class="d-flex justify-content-end gap-3 border-top pt-4 mt-4">
+                    <a class="btn btn-outline-secondary" asp-action="Index">Cancel</a>
+                    <button class="btn btn-primary" type="submit">Save transaction</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

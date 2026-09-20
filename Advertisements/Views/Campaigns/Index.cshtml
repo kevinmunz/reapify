@@ -1,0 +1,192 @@
+@using Advertisements.Models.Enums
+@model IEnumerable<Advertisements.Models.CampaignModels.Campaign>
+
+@{
+    ViewData["Title"] = "Campaigns";
+}
+
+<div class="container-fluid p-4 p-lg-5">
+    <header class="d-flex justify-content-between align-items-start gap-3 flex-wrap mb-4">
+        <div><p class="reapify-eyebrow">CAMPAIGN WORKSPACE</p><h1 class="h2">Campaigns</h1><p class="text-muted mb-0">Manage budgets, creators and results across your campaigns.</p></div>
+        <a class="btn btn-primary" asp-action="Create">Create campaign</a>
+    </header>
+    @if (TempData["Error"] != null) { <div class="alert alert-danger" role="alert">@TempData["Error"]</div> }
+    @if (TempData["Success"] != null) { <div class="alert alert-success" role="status">@TempData["Success"]</div> }
+    <section class="card"><div class="card-body"><div class="table-responsive">
+<table class="table table-hover align-middle" data-reapify-table>
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Client</th>
+                        <th scope="col">Currency</th>
+                        <th scope="col">Comm. Rate</th>
+                        <th scope="col">Client Budget</th>
+                        <th scope="col">Creator Budget</th>
+                        <th scope="col">Platform</th>
+                        <th scope="col">Start/End</th>
+                        <th scope="col">Client Payment Rate</th>
+                        <th scope="col">Creator Payout Rate</th>
+                        <th scope="col">Google Forms</th>
+                        <th scope="col">Client Payment</th>
+                        <th scope="col">Creator Payout</th>
+                        <th scope="col">S. Growth</th>
+                        <th scope="col">Stage</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreationDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClientName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Currency)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ComissionRate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClientBudget)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatorBudget)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Platform)
+                            </td>
+                            <td>
+                                @item.StartDate.ToString("dd/MM/yyyy")
+
+                                @item.EndDate.ToString("dd/MM/yyyy")
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClientPaymentRate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatorPayoutRate)
+                            </td>
+                            <td>
+                                <a href="@item.GoogleFormsLink" target="_blank" rel="noopener noreferrer">GF Link</a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClientPayment)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatorPayout)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SalesGrowth)
+                            </td>
+                            <td>
+
+                                @{
+                                    string stageBadgeClass = item.Stage switch
+                                    {
+                                        Stage.Created => "bg-primary",
+                                        Stage.Announcement => "bg-warning text-dark",
+                                        Stage.CCreation => "bg-primary",
+                                        Stage.Review => "bg-danger",
+                                        Stage.ToReport => "bg-warning text-dark",
+                                        Stage.Settled => "bg-success",
+                                        _ => "bg-secondary"
+                                    };
+                                }
+                                <div class="badge @stageBadgeClass rounded-pill">
+                                    @Html.DisplayFor(modelItem => item.Stage)
+                                </div>
+                            </td>
+                            <td>
+                                @{
+                                    string statusBadgeClass = item.CampaignStatus switch
+                                    {
+                                        CampaignStatus.Pending => "bg-primary",
+                                        CampaignStatus.Active => "bg-primary",
+                                        CampaignStatus.Paused => "bg-secondary",
+                                        CampaignStatus.Completed => "bg-success",
+                                        CampaignStatus.Canceled => "bg-danger",
+                                        _ => "bg-secondary"
+                                    };
+                                }
+                                <div class="badge @statusBadgeClass rounded-pill">
+                                    @Html.DisplayFor(modelItem => item.CampaignStatus)
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    <div class="dropdown">
+                                        <button class="btn btn-outline-primary dropdown-toggle" id="actions-@item.ProductId" aria-label="Actions for record @item.ProductId" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i data-feather="list"></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="actions-@item.ProductId">
+                                            <a class="dropdown-item" asp-controller="CampaignCreators" asp-action="IndexByCampaign" asp-route-campaignId="@item.ProductId">
+                                                
+                                                View Enrollments
+                                            </a>
+                                            <a class="dropdown-item" asp-controller="Creators" asp-action="IndexForEnrollments" asp-route-campaignId="@item.ProductId">
+                                                
+                                                Add Enrollments
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" asp-controller="WebhookMessages" asp-action="Send" asp-route-campaignId="@item.ProductId">
+                                                
+                                                Send A Webhook Message
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" asp-controller="Metrics" asp-action="IndexByCampaign" asp-route-campaignId="@item.ProductId">
+                                                
+                                                View Metrics
+                                            </a>
+                                            <a class="dropdown-item" asp-controller="Metrics" asp-action="ImportExcel" asp-route-campaignId="@item.ProductId">
+                                                
+                                                Import Metrics
+                                            </a>
+                                            <a class="dropdown-item" asp-controller="Transactions" asp-action="CreateForCampaign" asp-route-campaignId="@item.ProductId">
+                                                
+                                                Create Transaction
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:void(0);" onclick="checkTransaction(@item.ClientId, @item.ProductId)">
+                                                
+                                                Verify Transaction
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" asp-action="ExportPDFReport" asp-route-campaignId="@item.ProductId">
+                                                
+                                                Export PDF Report
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" asp-action="Update" asp-route-campaignId="@item.ProductId">
+                                                
+                                                Edit Campaign
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+    </div></div></section>
+</div>
+<partial name="_TransactionLookup" />
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous" asp-append-version="true"></script>
+    <script src="~/js/reapify-tables.js" asp-append-version="true"></script>
+
+    <script src="~/js/reapify-transactions.js" asp-append-version="true"></script>
+}
+
+
+
+

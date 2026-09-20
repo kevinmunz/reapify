@@ -1,0 +1,116 @@
+@using Advertisements.Models.Enums
+@model Advertisements.Models.MetricModels.CreateMetricVM
+
+@{
+    ViewData["Title"] = "Review metric";
+}
+
+<div class="container-fluid p-4 p-lg-5">
+    <header class="mb-4">
+        <a asp-controller="Campaigns" asp-action="Index" class="d-inline-block mb-3">&larr; Campaigns</a>
+        <h1 class="h2">Review metric</h1>
+        <p class="text-muted">Check the evidence, review results and update the submission status.</p>
+    </header>
+    <section class="card reapify-form-card"><div class="card-body p-4">
+<form asp-action="Update" method="post" class="reapify-editor">
+                        <input asp-for="CampaignId" class="form-control" hidden />
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="mb-4">
+                            <label asp-for="ProductId" class="form-label"></label>
+                            <input asp-for="ProductId" class="form-control" readonly />
+                            <span asp-validation-for="ProductId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="CreationDate" class="form-label"></label>
+                            <input asp-for="CreationDate" class="form-control" />
+                            <span asp-validation-for="CreationDate" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="SubmissionTimestamp" class="form-label"></label>
+                            <input asp-for="SubmissionTimestamp" class="form-control" />
+                            <span asp-validation-for="SubmissionTimestamp" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="CampaignCreatorId" class="form-label"></label>
+                            <input asp-for="CampaignCreatorId" class="form-control" readonly />
+                            <span asp-validation-for="CampaignCreatorId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="ScreenshotLink" class="form-label"></label>
+                            <input asp-for="ScreenshotLink" class="form-control" />
+                            <span asp-validation-for="ScreenshotLink" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="VideoLink" class="form-label"></label>
+                            <input asp-for="VideoLink" class="form-control" />
+                            <span asp-validation-for="VideoLink" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="NumViews" class="form-label"></label>
+                            <input asp-for="NumViews" class="form-control" />
+                            <span asp-validation-for="NumViews" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="NumLikes" class="form-label"></label>
+                            <input asp-for="NumLikes" class="form-control" />
+                            <span asp-validation-for="NumLikes" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="NumComments" class="form-label"></label>
+                            <input asp-for="NumComments" class="form-control" />
+                            <span asp-validation-for="NumComments" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="NumShares" class="form-label"></label>
+                            <input asp-for="NumShares" class="form-control" />
+                            <span asp-validation-for="NumShares" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="NumSaves" class="form-label"></label>
+                            <input asp-for="NumSaves" class="form-control" />
+                            <span asp-validation-for="NumSaves" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="VideoDuration" class="form-label"></label>
+                            <input asp-for="VideoDuration" class="form-control" />
+                            <span asp-validation-for="VideoDuration" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="QRCodeLink" class="form-label"></label>
+                            <input asp-for="QRCodeLink" class="form-control" />
+                            <span asp-validation-for="QRCodeLink" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-2 mb-2">
+                            <label asp-for="CalculatedClientPayment" class="form-label"></label>
+                            <div class="input-group">
+                                <input asp-for="CalculatedClientPayment" class="form-control" />
+                                <div class="input-group-text">BOB</div>
+                            </div>
+                            <span asp-validation-for="CalculatedClientPayment" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-2 mb-2">
+                            <label asp-for="CalculatedCreatorPayout" class="form-label"></label>
+                            <div class="input-group">
+                                <input asp-for="CalculatedCreatorPayout" class="form-control" />
+                                <div class="input-group-text">BOB</div>
+                            </div>
+                            <span asp-validation-for="CalculatedCreatorPayout" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="MetricStatus" class="form-label"></label>
+                            <select asp-for="MetricStatus" asp-items="Html.GetEnumSelectList<MetricStatus>()" class="form-select"></select>
+                            <span asp-validation-for="MetricStatus" class="text-danger"></span>
+                        </div>
+                        <hr class="my-4" />
+                        <div class="d-flex justify-content-between">
+                            <a class="btn btn-outline-primary" asp-controller="Metrics" asp-action="IndexByCampaign" asp-route-campaignId="@Model.CampaignId">Cancel</a>
+                            <button class="btn btn-primary" type="submit">Save</button>
+                        </div>
+                    </form>
+    </div></section>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

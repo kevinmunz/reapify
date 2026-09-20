@@ -1,0 +1,62 @@
+@using Advertisements.Models.Enums
+@model IEnumerable<Advertisements.Models.TransactionModels.Transaction>
+@{
+    ViewData["Title"] = "Transactions";
+    var transactions = Model.ToList();
+}
+<div class="container-fluid p-4 p-lg-5">
+    <header class="mb-4">
+        <p class="reapify-eyebrow">PAYMENT RECORDS</p>
+        <h1 class="h2">Transactions</h1>
+        <p class="text-muted mb-0">Review deposits and payouts. Record new transactions from the related campaign or metric.</p>
+    </header>
+    <section class="card" aria-labelledby="transaction-list-title">
+        <div class="card-header d-flex justify-content-between align-items-center gap-3">
+            <h2 id="transaction-list-title" class="h6 mb-0">Transaction history</h2>
+            <span class="text-muted small">@transactions.Count records</span>
+        </div>
+        <div class="card-body">
+            @if (transactions.Count == 0)
+            {
+                <div class="text-center py-5">
+                    <h3 class="h5">No transactions recorded yet</h3>
+                    <p class="text-muted">Open a campaign to record a deposit, or a metric to record a creator payout.</p>
+                    <a class="btn btn-outline-primary" asp-controller="Campaigns" asp-action="Index">View campaigns</a>
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle" data-reapify-table>
+                        <caption class="visually-hidden">Deposits and payouts with their related entities and products.</caption>
+                        <thead><tr>
+                            <th scope="col">ID</th><th scope="col">Date</th><th scope="col">Amount</th>
+                            <th scope="col">Type</th><th scope="col">Direction</th><th scope="col">Entity</th>
+                            <th scope="col">Related record</th><th scope="col">Description</th><th scope="col">Action</th>
+                        </tr></thead>
+                        <tbody>
+                        @foreach (var item in transactions)
+                        {
+                            <tr>
+                                <td>@item.TransactionId</td>
+                                <td class="text-nowrap">@item.CreationDate.ToString("yyyy-MM-dd HH:mm")</td>
+                                <td class="text-nowrap fw-bold">@item.Amount.ToString("N2")</td>
+                                <td>@Html.DisplayFor(_ => item.Type)</td>
+                                <td><span class="reapify-status @(item.Direction == Direction.Income ? "reapify-status-income" : "reapify-status-expense")">@item.Direction</span></td>
+                                <td><span class="d-block">@item.EntityName</span><small class="text-muted">@item.EntityType #@item.EntityId</small></td>
+                                <td class="text-nowrap">@item.ProductType #@item.ProductId</td>
+                                <td class="reapify-description">@(string.IsNullOrWhiteSpace(item.Description) ? "—" : item.Description)</td>
+                                <td><a class="btn btn-sm btn-outline-primary" asp-action="Update" asp-route-transactionId="@item.TransactionId" aria-label="Edit transaction @item.TransactionId">Edit</a></td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </section>
+</div>
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="~/js/reapify-tables.js" asp-append-version="true"></script>
+}

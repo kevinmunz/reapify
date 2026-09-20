@@ -1,0 +1,86 @@
+@model Advertisements.Models.CampaignCreatorModels.IndexCampaignCreatorsVM
+
+@{
+    ViewData["Title"] = "Campaign Creators";
+}
+
+<div class="container-fluid p-4 p-lg-5">
+    <header class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4"><div><p class="reapify-eyebrow">PEOPLE &amp; PARTICIPATION</p><h1 class="h2">Campaign @Model.CampaignId enrollments</h1></div><div class="d-flex flex-wrap gap-2"><a class="btn btn-primary" asp-controller="Creators" asp-action="IndexForEnrollments" asp-route-campaignId="@Model.CampaignId">Add creators</a><button type="button" class="btn btn-outline-primary" onclick="copyToClipboard(@Model.CampaignId)">Copy creator emails</button></div></header>
+    @if (TempData["Success"] != null) { <div class="alert alert-success" role="status">@TempData["Success"]</div> }
+    @if (TempData["Error"] != null) { <div class="alert alert-danger" role="alert">@TempData["Error"]</div> }
+    <section class="card"><div class="card-body"><div class="table-responsive">
+<table class="table table-hover align-middle" data-reapify-table>
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Campaign Id</th>
+                        <th scope="col">Creator Id</th>
+                        <th scope="col">Creator Name</th>
+                        <th scope="col">Creator Email</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.CampaignCreators)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CampaignCreatorId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreationDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CampaignId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatorId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatorName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatorEmail)
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    <div class="dropdown">
+                                        <button class="btn btn-outline-primary dropdown-toggle" id="enrollment-@item.CampaignCreatorId" aria-label="Enrollment actions" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i data-feather="list"></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="enrollment-@item.CampaignCreatorId">
+                                            <a class="dropdown-item" asp-controller="Metrics" asp-action="Create" asp-route-campaignCreatorId="@item.CampaignCreatorId">
+                                                
+                                                Add Metric
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:void(0);" onclick="checkMetric(@item.CampaignCreatorId)">
+                                                
+                                                Verify Submission
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" asp-action="Delete" asp-route-campaignCreatorId="@item.CampaignCreatorId">
+                                                
+                                                Delete Enrollment
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+    </div></div></section>
+</div>
+<partial name="_EnrollmentFeedback" />
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous" asp-append-version="true"></script>
+    <script src="~/js/reapify-tables.js" asp-append-version="true"></script>
+
+    <script src="~/js/reapify-enrollments.js" asp-append-version="true"></script>
+
+}
+
+

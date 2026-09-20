@@ -1,0 +1,37 @@
+@using Advertisements.Models.Enums
+@model Advertisements.Models.MetricModels.ImportMetricsExcelVM
+
+@{
+    ViewData["Title"] = "Import metrics";
+}
+
+<div class="container-fluid p-4 p-lg-5">
+    <header class="mb-4">
+        <a asp-controller="Campaigns" asp-action="Index" class="d-inline-block mb-3">&larr; Campaigns</a>
+        <h1 class="h2">Import metrics</h1>
+        <p class="text-muted">Upload an .xlsx file using the expected metric column layout.</p>
+    </header>
+    <section class="card reapify-form-card"><div class="card-body p-4">
+<form asp-action="ImportExcel" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <input asp-for="CampaignId" class="form-control" hidden />
+                        <div class="mb-4">
+                            <label asp-for="ExcelFile" class="form-label"></label>
+                            <input asp-for="ExcelFile" class="form-control" accept=".xlsx" />
+                            <span asp-validation-for="ExcelFile" class="text-danger"></span>
+                        </div>
+                        <hr class="my-4" />
+                        <div class="d-flex justify-content-between">
+                            <a class="btn btn-outline-primary" asp-controller="Metrics" asp-action="IndexByCampaign" asp-route-campaignId="@Model.CampaignId">Cancel</a>
+                            <button class="btn btn-primary" type="submit">Import metrics</button>
+                        </div>
+                    </form>
+    </div></section>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+

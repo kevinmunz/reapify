@@ -1,0 +1,60 @@
+/* Original Reapify application shell. Uses the separately licensed Bootstrap library. */
+:root { --reapify-ink:#18322d; --reapify-accent:#176b52; --reapify-paper:#f4f6f3; }
+body { margin:0; color:var(--reapify-ink); background:var(--reapify-paper); font-family:system-ui,-apple-system,"Segoe UI",sans-serif; }
+a { color:var(--reapify-accent); }
+a:hover { color:#104b3a; }
+.reapify-topbar { min-height:76px; padding:16px 28px; display:flex; align-items:center; justify-content:space-between; gap:16px; background:#fff; border-bottom:1px solid #dfe7e1; }
+.reapify-brand { display:flex; align-items:center; gap:10px; color:var(--reapify-ink); font-size:1.3rem; font-weight:750; text-decoration:none; }
+.reapify-mark { display:grid; place-items:center; width:38px; height:38px; background:var(--reapify-accent); color:#fff; border-radius:12px; }
+.reapify-brand-detail { color:#68766e; font-size:.85rem; font-weight:400; }
+.reapify-workspace { color:#596a61; font-size:.85rem; }
+.reapify-shell { display:grid; grid-template-columns:220px minmax(0,1fr); min-height:calc(100vh - 76px); }
+.reapify-sidebar { padding:30px 16px; background:#fff; border-right:1px solid #dfe7e1; }
+.reapify-nav-label { margin:0 14px 16px; color:#68766e; font-size:.7rem; letter-spacing:.16em; font-weight:700; }
+.reapify-nav-link { display:block; padding:12px 14px; margin-bottom:6px; color:#45564c; text-decoration:none; border-radius:8px; font-weight:550; }
+.reapify-nav-link:hover { background:#f0f5f1; }
+.reapify-nav-link.is-active { background:#e3f1e8; color:#11563e; }
+.reapify-sidebar-note { margin:38px 14px 0; padding-top:20px; border-top:1px solid #dfe7e1; font-size:.8rem; line-height:1.7; }
+.reapify-sidebar-note span { display:block; color:#68766e; margin-top:7px; }
+.reapify-content { min-width:0; display:flex; flex-direction:column; }
+main { flex:1; min-width:0; }
+.reapify-footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; padding:28px; font-size:.8rem; color:#596a61; }
+.reapify-skip { position:absolute; top:-80px; left:16px; padding:12px; background:white; z-index:2000; }
+.reapify-skip:focus { top:8px; }
+:focus-visible { outline:3px solid #c17715; outline-offset:3px; }
+.btn-primary { background:#176b52; border-color:#176b52; }
+.btn-primary:hover,.btn-primary:focus { background:#104b3a; border-color:#104b3a; }
+.btn-outline-primary { color:#176b52; border-color:#176b52; }
+.btn-outline-primary:hover { background:#176b52; border-color:#176b52; }
+.bg-dark { background-color:#18322d!important; }
+.text-primary { color:#176b52!important; }
+.card { border:1px solid #dfe7e1; border-radius:12px; overflow:hidden; }
+.card-body { padding:24px; }
+.card-header { padding:16px 24px; background:#fff; border-bottom:1px solid #dfe7e1; }
+table { width:100%; border-collapse:collapse; font-size:.875rem; }
+th,td { padding:12px; border-bottom:1px solid #e3e9e5; text-align:left; vertical-align:middle; }
+th { color:#526258; font-weight:650; }
+.card-body:has(table) { overflow-x:auto; }
+svg.feather { width:18px; height:18px; }
+.datatable-top,.datatable-bottom { display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; padding:12px 0; }
+.datatable-pagination-list { display:flex; gap:8px; list-style:none; padding:0; }
+.datatable-input,.datatable-selector { border:1px solid #b9c8bf; border-radius:6px; padding:6px 10px; }
+@media(max-width:991.98px) {
+ .reapify-shell { display:block; }
+ .reapify-sidebar { padding:0 16px; border-right:0; border-bottom:1px solid #dfe7e1; }
+ #workspace-navigation { padding:16px 0; }
+ .reapify-sidebar-note { display:none; }
+ .reapify-workspace { display:none; }
+ .reapify-topbar { padding:16px; }
+}
+@media(max-width:480px) { .reapify-brand-detail { display:none; } .reapify-footer { padding:20px; } }
+.reapify-eyebrow { color:#596a61; font-size:.75rem; font-weight:700; letter-spacing:.12em; margin-bottom:8px; }
+.reapify-form-card { max-width:760px; }
+.reapify-description { min-width:180px; max-width:360px; overflow-wrap:anywhere; }
+.reapify-status { display:inline-block; padding:4px 10px; border-radius:20px; font-size:.8rem; font-weight:600; }
+.reapify-status-income { color:#135238; background:#e3f1e8; }
+.reapify-status-expense { color:#794710; background:#fff1d9; }
+.datatable-sorter { background:none; border:0; color:inherit; font:inherit; padding:0; text-align:left; }
+.datatable-pagination-list button { border:1px solid #b9c8bf; border-radius:6px; background:#fff; padding:5px 10px; }
+.datatable-pagination-list .datatable-active button { background:#176b52; color:white; }
+

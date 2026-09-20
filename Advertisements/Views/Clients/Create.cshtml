@@ -1,0 +1,98 @@
+@using Advertisements.Models.Enums
+@model Advertisements.Models.ClientModels.CreateClientVM
+
+@{
+    ViewData["Title"] = "Create client";
+}
+
+<div class="container-fluid p-4 p-lg-5">
+    <header class="mb-4"><a asp-controller="Clients" asp-action="Index" class="d-inline-block mb-3">&larr; Back to list</a><h1 class="h2">Create client</h1><p class="text-muted">Keep the details up to date for your campaign workspace.</p></header>
+    <section class="card reapify-form-card"><div class="card-body p-4">
+<form asp-action="Create" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="mb-4">
+                            <label asp-for="Name" class="form-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="CountryId" class="form-label"></label>
+                            <select asp-for="CountryId" asp-items="Model.CountryNames" class="form-select">
+                                <option value="">Select a Country</option>
+                            </select>
+                            <span asp-validation-for="CountryId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="StateId" class="form-label"></label>
+                            <select asp-for="StateId" asp-items="Model.StateNames" class="form-select">
+                                <option value="">Select a Country</option>
+                            </select>
+                            <span asp-validation-for="StateId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="IndustryId" class="form-label"></label>
+                            <select asp-for="IndustryId" asp-items="Model.IndustryNames" class="form-select"></select>
+                            <span asp-validation-for="IndustryId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="ReferenceLink" class="form-label"></label>
+                            <input asp-for="ReferenceLink" class="form-control" />
+                            <span asp-validation-for="ReferenceLink" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="ContactName" class="form-label"></label>
+                            <input asp-for="ContactName" class="form-control" />
+                            <span asp-validation-for="ContactName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="ContactEmail" class="form-label"></label>
+                            <input asp-for="ContactEmail" class="form-control" />
+                            <span asp-validation-for="ContactEmail" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="ContactPhone" class="form-label"></label>
+                            <input asp-for="ContactPhone" class="form-control" />
+                            <span asp-validation-for="ContactPhone" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="NIT" class="form-label"></label>
+                            <input asp-for="NIT" class="form-control" />
+                            <span asp-validation-for="NIT" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="TaxAddress" class="form-label"></label>
+                            <input asp-for="TaxAddress" class="form-control" />
+                            <span asp-validation-for="TaxAddress" class="text-danger"></span>
+                        </div>
+                        <hr class="my-4" />
+                        <div class="d-flex justify-content-between">
+                            <a class="btn btn-outline-primary" asp-controller="Clients" asp-action="Index">Cancel</a>
+                            <button class="btn btn-primary" type="submit">Create</button>
+                        </div>
+                    </form>
+    </div></section>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $('#CountryId').change(function () {
+            var countryId = $(this).val();
+            var $state = $('#StateId');
+            $state.empty().append('<option value="">Loading...</option>');
+
+            if (countryId) {
+                $.getJSON('/Clients/GetStates', { countryId: countryId }, function (states) {
+                    $state.empty().append('<option value="">Select a State</option>');
+                    $.each(states, function (i, state) {
+                        $state.append($('<option>').val(state.value).text(state.text));
+                    });
+                });
+            } else {
+                $state.empty().append('<option value="">Select a Country first</option>');
+            }
+        });
+    </script>
+}
+
+

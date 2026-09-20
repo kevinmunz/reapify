@@ -1,0 +1,109 @@
+@using Advertisements.Models.Enums
+@model Advertisements.Models.CreatorModels.CreateCreatorVM
+
+@{
+    ViewData["Title"] = "Edit creator";
+}
+
+<div class="container-fluid p-4 p-lg-5">
+    <header class="mb-4"><a asp-controller="Creators" asp-action="Index" class="d-inline-block mb-3">&larr; Back to list</a><h1 class="h2">Edit creator</h1><p class="text-muted">Keep the details up to date for your campaign workspace.</p></header>
+    <section class="card reapify-form-card"><div class="card-body p-4">
+<form asp-action="Update" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="mb-4">
+                            <label asp-for="EntityId" class="form-label"></label>
+                            <input asp-for="EntityId" class="form-control" readonly />
+                            <span asp-validation-for="EntityId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="CreationDate" class="form-label"></label>
+                            <input asp-for="CreationDate" class="form-control" />
+                            <span asp-validation-for="CreationDate" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="Name" class="form-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="CountryId" class="form-label"></label>
+                            <select asp-for="CountryId" asp-items="Model.CountryNames" class="form-select"></select>
+                            <span asp-validation-for="CountryId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="StateId" class="form-label"></label>
+                            <select asp-for="StateId" asp-items="Model.StateNames" class="form-select"></select>
+                            <span asp-validation-for="StateId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="ContentType" class="form-label"></label>
+                            <select asp-for="ContentType" asp-items="Html.GetEnumSelectList<ContentType>()" class="form-select"></select>
+                            <span asp-validation-for="ContentType" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="FirstName" class="form-label"></label>
+                            <input asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="LastName" class="form-label"></label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="CI" class="form-label"></label>
+                            <input asp-for="CI" class="form-control" />
+                            <span asp-validation-for="CI" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="RegistrationPhone" class="form-label"></label>
+                            <input asp-for="RegistrationPhone" class="form-control" />
+                            <span asp-validation-for="RegistrationPhone" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="RegistrationEmail" class="form-label"></label>
+                            <input asp-for="RegistrationEmail" class="form-control" />
+                            <span asp-validation-for="RegistrationEmail" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="FollowerRange" class="form-label"></label>
+                            <select asp-for="FollowerRange" asp-items="Html.GetEnumSelectList<FollowerRange>()" class="form-select"></select>
+                            <span asp-validation-for="FollowerRange" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="CreatorStatus" class="form-label"></label>
+                            <select asp-for="CreatorStatus" asp-items="Html.GetEnumSelectList<CreatorStatus>()" class="form-select"></select>
+                            <span asp-validation-for="CreatorStatus" class="text-danger"></span>
+                        </div>
+                        <hr class="my-4" />
+                        <div class="d-flex justify-content-between">
+                            <a class="btn btn-outline-primary" asp-controller="Creators" asp-action="Index">Cancel</a>
+                            <button class="btn btn-primary" type="submit">Save</button>
+                        </div>
+                    </form>
+    </div></section>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $('#CountryId').change(function () {
+            var countryId = $(this).val();
+            var $state = $('#StateId');
+            $state.empty().append('<option value="">Loading...</option>');
+
+            if (countryId) {
+                $.getJSON('/Creators/GetStates', { countryId: countryId }, function (states) {
+                    $state.empty().append('<option value="">Select a State</option>');
+                    $.each(states, function (i, state) {
+                        $state.append($('<option>').val(state.value).text(state.text));
+                    });
+                });
+            } else {
+                $state.empty().append('<option value="">Select a Country first</option>');
+            }
+        });
+    </script>
+}
+
+

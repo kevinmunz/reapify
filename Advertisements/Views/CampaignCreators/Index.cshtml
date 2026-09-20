@@ -1,0 +1,58 @@
+@model IEnumerable<Advertisements.Models.CampaignCreatorModels.CampaignCreator>
+
+@{
+    ViewData["Title"] = "Campaign Creators";
+}
+
+<div class="container-fluid p-4 p-lg-5">
+    <header class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4"><div><p class="reapify-eyebrow">PEOPLE &amp; PARTICIPATION</p><h1 class="h2">Enrollments</h1></div><a class="btn btn-primary" asp-action="Create">Create new</a></header>
+    @if (TempData["Success"] != null) { <div class="alert alert-success" role="status">@TempData["Success"]</div> }
+    @if (TempData["Error"] != null) { <div class="alert alert-danger" role="alert">@TempData["Error"]</div> }
+    <section class="card"><div class="card-body"><div class="table-responsive">
+<table class="table table-hover align-middle" data-reapify-table>
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Campaign Id</th>
+                        <th scope="col">Creator Id</th>
+                        <th scope="col">Creator Name</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CampaignCreatorId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreationDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CampaignId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatorId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatorName)
+                            </td>
+                            <td>
+                                <a class="btn btn-primary" asp-action="Update" asp-route-campaignCreatorId="@item.CampaignCreatorId">Edit</a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+    </div></div></section>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous" asp-append-version="true"></script>
+    <script src="~/js/reapify-tables.js" asp-append-version="true"></script>
+}
+
+

@@ -1,0 +1,103 @@
+@using Advertisements.Models.Enums
+@model IEnumerable<Advertisements.Models.CreatorModels.Creator>
+
+@{
+    ViewData["Title"] = "Creators";
+}
+
+<div class="container-fluid p-4 p-lg-5">
+    <header class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4"><div><p class="reapify-eyebrow">PEOPLE &amp; PARTICIPATION</p><h1 class="h2">Creators</h1></div><a class="btn btn-primary" asp-action="Create">Create new</a></header>
+    @if (TempData["Success"] != null) { <div class="alert alert-success" role="status">@TempData["Success"]</div> }
+    @if (TempData["Error"] != null) { <div class="alert alert-danger" role="alert">@TempData["Error"]</div> }
+    <section class="card"><div class="card-body"><div class="table-responsive">
+<table class="table table-hover align-middle" data-reapify-table>
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">State</th>
+                        <th scope="col">Cont. Type</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">CI</th>
+                        <th scope="col">Regis. Phone</th>
+                        <th scope="col">Regis. Email</th>
+                        <th scope="col">Followers</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EntityId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreationDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CountryName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StateName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ContentType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CI)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RegistrationPhone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RegistrationEmail)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FollowerRange)
+                            </td>
+                            <td>
+                                @{
+                                    string statusBadgeClass = item.CreatorStatus switch
+                                    {
+                                        CreatorStatus.Pending => "bg-primary",
+                                        CreatorStatus.Active => "bg-primary",
+                                        CreatorStatus.Suspended => "bg-danger",
+                                        _ => "bg-secondary"
+                                    };
+                                }
+                                <div class="badge @statusBadgeClass text-white rounded-pill">
+                                    @Html.DisplayFor(modelItem => item.CreatorStatus)
+                                </div>
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-primary" asp-action="Update" asp-route-creatorId="@item.EntityId">Edit</a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+    </div></div></section>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous" asp-append-version="true"></script>
+    <script src="~/js/reapify-tables.js" asp-append-version="true"></script>
+}
+
+
+
