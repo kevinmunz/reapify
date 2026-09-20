@@ -1,8 +1,8 @@
 # Reapify
 
-A creator campaign management system originally developed for the author's own business. It helps coordinate participants, review content performance, and record the payments associated with each campaign.
+I originally developed Reapify as a creator campaign management system for my own business. It helps coordinate participants, review content performance, and record the payments associated with each campaign.
 
-This portfolio version includes a demo database with fictional records. The Reapify name, logos, and brand identity were created by the author.
+This portfolio version includes a demo database with fictional records. I created the Reapify name, logos, and brand identity.
 
 ## Features
 
@@ -76,7 +76,7 @@ The solution retains the technical name `Advertisements`; the product is Reapify
 1. Run [database/01-schema.sql](database/01-schema.sql) in SSMS. It creates `Reapify_Portfolio_Demo`, its 11 tables, and 53 stored procedures. Run it once on an instance where that database does not already exist.
 2. Run [database/02-demo-data.sql](database/02-demo-data.sql). It requires empty tables and rejects an existing dataset to prevent duplicate records.
 
-These scripts create a separate database. You do not need the original business database or the author's credentials.
+These scripts create a separate database. You do not need the original business database or my credentials.
 
 ### Connection settings
 
@@ -179,6 +179,6 @@ These executables return an error exit code when a check fails. They cover view-
 
 The interface uses Bootstrap and custom styles.
 
-See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) for library and font notices, and the [NuGet inventory](licenses/NUGET-INVENTORY.md) for direct and transitive dependencies. Each dependency retains its own terms. No general license is granted for the Reapify source code; the brand and logos belong to their author.
+See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) for library and font notices, and the [NuGet inventory](licenses/NUGET-INVENTORY.md) for direct and transitive dependencies. Each dependency retains its own terms. I do not grant a general license for the Reapify source code; the brand and logos belong to me.
 
 
